@@ -1,0 +1,12 @@
+---
+layout: page
+title: Pencarian
+permalink: /search/
+---
+<form id="search-form" class="input-group mb-3" role="search">
+  <input id="search-input" class="form-control" type="search" name="q" placeholder="Judul, penulis, atau kata kunci" data-index="{{ '/search.json' | relative_url }}" aria-label="Kata pencarian">
+  <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Cari</button>
+</form>
+<div id="search-status" class="small text-muted mb-3" aria-live="polite"></div>
+<div id="search-results"></div>
+<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>

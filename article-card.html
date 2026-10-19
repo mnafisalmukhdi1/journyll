@@ -1,0 +1,7 @@
+{% assign a = include.article %}
+<div class="article-card">
+  <h3 class="h6 mb-1"><a href="{{ a.url | relative_url }}">{{ a.title }}</a></h3>
+  <div class="small text-muted mb-2">{{ a.authors | map: "name" | join: ", " }}{% if a.pages %} &nbsp;&bull;&nbsp; hlm. {{ a.pages }}{% endif %}</div>
+  <a class="btn btn-sm btn-outline-primary" href="{{ a.url | relative_url }}">Abstrak</a>
+  {% if a.pdf %}<a class="btn btn-sm btn-primary" href="{{ a.pdf | relative_url }}"><i class="bi bi-file-earmark-pdf me-1"></i>PDF</a>{% endif %}
+</div>

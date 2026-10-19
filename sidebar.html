@@ -1,0 +1,25 @@
+{% assign j = site.data.journal %}
+<div class="side-block">
+  <h2 class="side-title">Informasi Jurnal</h2>
+  <dl class="small mb-0">
+    <dt>Penerbit</dt><dd>{{ j.publisher }}</dd>
+    <dt>Frekuensi terbit</dt><dd>{{ j.frequency }}</dd>
+    <dt>Awalan DOI</dt><dd>{{ j.doi_prefix }}</dd>
+    <dt>Lisensi</dt><dd><a href="{{ j.license_url }}" rel="noopener">{{ j.license }}</a></dd>
+  </dl>
+</div>
+<div class="side-block">
+  <h2 class="side-title">Konten Jurnal</h2>
+  <div class="list-group list-group-flush small">
+    <a class="list-group-item list-group-item-action" href="{{ '/current/' | relative_url }}"><i class="bi bi-journal-text me-2"></i>Terbitan terkini</a>
+    <a class="list-group-item list-group-item-action" href="{{ '/archive/' | relative_url }}"><i class="bi bi-archive me-2"></i>Arsip</a>
+    <a class="list-group-item list-group-item-action" href="{{ '/search/' | relative_url }}"><i class="bi bi-search me-2"></i>Pencarian</a>
+  </div>
+</div>
+<div class="side-block">
+  <h2 class="side-title">Untuk Penulis</h2>
+  <div class="list-group list-group-flush small">
+    <a class="list-group-item list-group-item-action" href="{{ '/author-guidelines/' | relative_url }}"><i class="bi bi-pencil-square me-2"></i>Panduan penulis</a>
+    <a class="list-group-item list-group-item-action" href="mailto:{{ j.email }}"><i class="bi bi-envelope me-2"></i>Kirim naskah</a>
+  </div>
+</div>

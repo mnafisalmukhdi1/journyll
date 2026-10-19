@@ -1,0 +1,16 @@
+- title: Beranda
+  url: /
+  icon: house
+- title: Terbitan Terkini
+  url: /current/
+  icon: journal-text
+- title: Arsip
+  url: /archive/
+  icon: archive
+- title: Tentang
+  icon: info-circle
+  children:
+    - { title: Tentang Jurnal, url: /about/ }
+    - { title: Tim Editorial, url: /editorial-team/ }
+    - { title: Panduan Penulis, url: /author-guidelines/ }
+    - { title: Kontak, url: /contact/ }

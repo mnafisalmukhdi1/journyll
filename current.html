@@ -1,0 +1,18 @@
+---
+layout: page
+title: Terbitan Terkini
+permalink: /current/
+---
+{% assign groups = site.articles | group_by_exp: "a", "a.volume | times: 100 | plus: a.number" | sort: "name" | reverse %}
+{% assign latest = groups | first %}
+{% if latest %}
+  {% assign first = latest.items | first %}
+  <h2 class="h5">Vol. {{ first.volume }} No. {{ first.number }} ({{ first.year }})</h2>
+  {% assign sections = latest.items | group_by: "section" %}
+  {% for s in sections %}
+    <h3 class="h6 section-label">{{ s.name | default: "Artikel" }}</h3>
+    {% for a in s.items %}{% include article-card.html article=a %}{% endfor %}
+  {% endfor %}
+{% else %}
+  <p>Belum ada artikel yang diterbitkan.</p>
+{% endif %}

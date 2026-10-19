@@ -1,0 +1,26 @@
+# ====== Konfigurasi Situs ======
+title: Nama Jurnal Anda
+description: Jurnal ilmiah akses terbuka berbasis Jekyll
+lang: id
+
+# GitHub Pages:
+#  - Situs pengguna (username.github.io)  -> baseurl: ""
+#  - Situs proyek (username.github.io/repo) -> baseurl: "/repo"
+url: "https://username.github.io"
+baseurl: ""
+
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+collections:
+  articles:
+    output: true
+    permalink: /artikel/:name/
+
+defaults:
+  - scope: { path: "", type: "articles" }
+    values: { layout: article }
+
+exclude: [README.md, Gemfile, Gemfile.lock, vendor, node_modules]

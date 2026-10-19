@@ -1,0 +1,33 @@
+---
+layout: default
+title: Beranda
+---
+{% assign groups = site.articles | group_by_exp: "a", "a.volume | times: 100 | plus: a.number" | sort: "name" | reverse %}
+{% assign latest = groups | first %}
+
+<section class="mb-4">
+  <h1 class="h3 page-title">Selamat datang</h1>
+  <p>{{ site.description }}. Seluruh artikel dapat dibaca dan diunduh tanpa biaya.</p>
+  <a class="btn btn-primary" href="{{ '/author-guidelines/' | relative_url }}"><i class="bi bi-pencil-square me-1"></i>Kirim naskah</a>
+  <a class="btn btn-outline-secondary" href="{{ '/about/' | relative_url }}">Tentang jurnal</a>
+</section>
+
+{% if latest %}
+{% assign first = latest.items | first %}
+<section class="mb-4">
+  <h2 class="h5 page-title">Terbitan terkini: Vol. {{ first.volume }} No. {{ first.number }} ({{ first.year }})</h2>
+  {% for a in latest.items %}{% include article-card.html article=a %}{% endfor %}
+  <a href="{{ '/archive/' | relative_url }}">Lihat semua terbitan &raquo;</a>
+</section>
+{% endif %}
+
+<section>
+  <h2 class="h5 page-title">Pengumuman</h2>
+  {% for n in site.data.announcements %}
+  <div class="mb-3">
+    <strong>{{ n.title }}</strong>
+    <div class="small text-muted">{{ n.date | date: "%-d %B %Y" }}</div>
+    <div>{{ n.text }}</div>
+  </div>
+  {% endfor %}
+</section>

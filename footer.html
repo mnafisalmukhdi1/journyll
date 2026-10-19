@@ -1,0 +1,17 @@
+<footer class="site-footer mt-4">
+  <div class="container py-4 small">
+    <div class="row g-3">
+      <div class="col-md-8">
+        <strong>{{ site.data.journal.name }}</strong><br>
+        {{ site.data.journal.publisher }}<br>
+        {{ site.data.journal.address }}<br>
+        <i class="bi bi-envelope me-1"></i><a href="mailto:{{ site.data.journal.email }}">{{ site.data.journal.email }}</a>
+      </div>
+      <div class="col-md-4 text-md-end">
+        Berlisensi <a href="{{ site.data.journal.license_url }}" rel="noopener">{{ site.data.journal.license }}</a><br>
+        <a href="{{ '/feed.xml' | relative_url }}"><i class="bi bi-rss me-1"></i>Umpan RSS</a><br>
+        &copy; {{ 'now' | date: "%Y" }} {{ site.data.journal.short_name }}
+      </div>
+    </div>
+  </div>
+</footer>

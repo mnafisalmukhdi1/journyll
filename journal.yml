@@ -1,0 +1,12 @@
+name: Nama Jurnal Anda
+short_name: NJA
+tagline: Jurnal ilmiah akses terbuka, terbit berkala dan ditelaah sejawat
+issn_print: "0000-0000"
+issn_online: "0000-0000"
+publisher: Nama Penerbit / Lembaga
+email: redaksi@example.com
+address: Alamat lengkap redaksi
+frequency: Dua kali setahun (Juni dan Desember)
+doi_prefix: "10.0000"
+license: CC BY 4.0
+license_url: https://creativecommons.org/licenses/by/4.0/

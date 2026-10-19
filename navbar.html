@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark journal-nav sticky-top" aria-label="Navigasi utama">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Buka menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav me-auto">
+        {% for item in site.data.navigation %}
+          {% if item.children %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if item.icon %}<i class="bi bi-{{ item.icon }} me-1"></i>{% endif %}{{ item.title }}
+            </a>
+            <ul class="dropdown-menu">
+              {% for c in item.children %}
+              <li><a class="dropdown-item" href="{{ c.url | relative_url }}">{{ c.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link{% if page.url == item.url %} active{% endif %}" href="{{ item.url | relative_url }}">
+              {% if item.icon %}<i class="bi bi-{{ item.icon }} me-1"></i>{% endif %}{{ item.title }}
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <form class="d-flex" role="search" action="{{ '/search/' | relative_url }}" method="get">
+        <input class="form-control form-control-sm me-2" type="search" name="q" placeholder="Cari artikel" aria-label="Cari artikel">
+        <button class="btn btn-sm btn-light" type="submit" aria-label="Cari"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
