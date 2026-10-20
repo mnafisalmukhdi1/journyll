@@ -1,5 +1,8 @@
 {% assign a = include.article %}
 <div class="article-card">
+  {% if include.show_journal %}{% assign cj = site.data.journals | where: "slug", a.journal | first %}
+  <span class="badge text-bg-secondary mb-1" style="background-color:{{ cj.color }} !important">{{ cj.short_name }}</span>
+  <span class="small text-muted">Vol. {{ a.volume }} No. {{ a.number }} ({{ a.year }})</span>{% endif %}
   <h3 class="h6 mb-1"><a href="{{ a.url | relative_url }}">{{ a.title }}</a></h3>
   <div class="small text-muted mb-2">{{ a.authors | map: "name" | join: ", " }}{% if a.pages %} &nbsp;&bull;&nbsp; hlm. {{ a.pages }}{% endif %}</div>
   <a class="btn btn-sm btn-outline-primary" href="{{ a.url | relative_url }}">Abstrak</a>

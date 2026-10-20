@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'id' }}">
-{% include head.html %}
+{% if page.journal %}{% assign jr = site.data.journals | where: "slug", page.journal | first %}{% endif %}
+{% include head.html jr=jr %}
 <body class="d-flex flex-column min-vh-100">
   <a class="visually-hidden-focusable" href="#konten">Lompat ke konten</a>
-  {% include header.html %}
-  {% include navbar.html %}
+  {% include header.html jr=jr %}
+  {% include navbar.html jr=jr %}
   <main id="konten" class="container my-4 flex-grow-1">
     <div class="row g-4">
       <div class="col-lg-9">{{ content }}</div>
-      <aside class="col-lg-3">{% include sidebar.html %}</aside>
+      <aside class="col-lg-3">{% include sidebar.html jr=jr %}</aside>
     </div>
   </main>
-  {% include footer.html %}
+  {% include footer.html jr=jr %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

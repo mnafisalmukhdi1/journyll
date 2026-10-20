@@ -1,42 +1,31 @@
 ---
 layout: default
 ---
+{% assign jr = site.data.journals | where: "slug", page.journal | first %}
 {% assign names = page.authors | map: "name" | join: ", " %}
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb small">
-    <li class="breadcrumb-item"><a href="{{ '/' | relative_url }}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{ '/archive/' | relative_url }}">Arsip</a></li>
-    <li class="breadcrumb-item">Vol. {{ page.volume }} No. {{ page.number }} ({{ page.year }})</li>
-  </ol>
-</nav>
-
+{% assign lbl = "Vol. " | append: page.volume | append: " No. " | append: page.number | append: " (" | append: page.year | append: ")" %}
+{% include breadcrumb.html label=lbl %}
 <article>
   {% if page.section %}<span class="badge text-bg-secondary mb-2">{{ page.section }}</span>{% endif %}
   <h1 class="article-title">{{ page.title }}</h1>
-
   <ul class="list-unstyled mb-3">
     {% for a in page.authors %}
     <li><i class="bi bi-person me-1"></i><strong>{{ a.name }}</strong>{% if a.affiliation %} <span class="text-muted small">- {{ a.affiliation }}</span>{% endif %}</li>
     {% endfor %}
   </ul>
-
   <div class="mb-4 d-flex flex-wrap gap-2">
     {% if page.pdf %}<a class="btn btn-primary" href="{{ page.pdf | relative_url }}"><i class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF</a>{% endif %}
     {% if page.doi %}<a class="btn btn-outline-secondary" href="https://doi.org/{{ page.doi }}" rel="noopener"><i class="bi bi-link-45deg me-1"></i>DOI</a>{% endif %}
   </div>
-
   <h2 class="h5 section-label">Abstrak</h2>
   <p class="abstract">{{ page.abstract }}</p>
-
   {% if page.keywords %}
   <h2 class="h5 section-label">Kata kunci</h2>
-  <p>{% for k in page.keywords %}<a class="badge text-bg-light border text-decoration-none" href="{{ '/search/' | relative_url }}?q={{ k | uri_escape }}">{{ k }}</a> {% endfor %}</p>
+  <p>{% for k in page.keywords %}<a class="badge text-bg-light border text-decoration-none" href="{{ '/search/' | relative_url }}?q={{ k | uri_escape }}&j={{ page.journal }}">{{ k }}</a> {% endfor %}</p>
   {% endif %}
-
   {{ content }}
-
   <h2 class="h5 section-label">Cara mengutip</h2>
   <p class="small border-start border-3 ps-3">
-    {{ names }}. ({{ page.year }}). {{ page.title }}. <em>{{ site.data.journal.name }}</em>, {{ page.volume }}({{ page.number }}){% if page.pages %}, {{ page.pages }}{% endif %}.{% if page.doi %} https://doi.org/{{ page.doi }}{% endif %}
+    {{ names }}. ({{ page.year }}). {{ page.title }}. <em>{{ jr.name }}</em>, {{ page.volume }}({{ page.number }}){% if page.pages %}, {{ page.pages }}{% endif %}.{% if page.doi %} https://doi.org/{{ page.doi }}{% endif %}
   </p>
 </article>

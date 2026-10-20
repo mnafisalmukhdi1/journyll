@@ -1,0 +1,18 @@
+---
+layout: default
+---
+{% assign list = site.articles | where: "journal", page.journal %}
+{% assign latest = list | group_by_exp: "a", "a.volume | times: 100 | plus: a.number" | sort: "name" | reverse | first %}
+{% include breadcrumb.html %}
+<h1 class="h3 page-title">{{ page.title }}</h1>
+{% if latest %}
+  {% assign f = latest.items | first %}
+  <h2 class="h5">Vol. {{ f.volume }} No. {{ f.number }} ({{ f.year }})</h2>
+  {% assign sections = latest.items | group_by: "section" %}
+  {% for s in sections %}
+    <h3 class="h6 section-label">{{ s.name | default: "Artikel" }}</h3>
+    {% for a in s.items %}{% include article-card.html article=a %}{% endfor %}
+  {% endfor %}
+{% else %}
+  <p>Belum ada artikel yang diterbitkan.</p>
+{% endif %}

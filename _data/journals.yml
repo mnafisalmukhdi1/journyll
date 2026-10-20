@@ -1,0 +1,32 @@
+- slug: jurnal-a
+  name: Jurnal Contoh A
+  short_name: JCA
+  tagline: Jurnal ilmiah akses terbuka, terbit berkala dan ditelaah sejawat
+  issn_print: "0000-0001"
+  issn_online: "0000-0002"
+  publisher: Nama Penerbit A
+  email: redaksi-a@example.com
+  address: Alamat redaksi Jurnal A
+  frequency: Dua kali setahun (Juni dan Desember)
+  doi_prefix: "10.0001"
+  license: CC BY 4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  color: "#17405a"
+  color_dark: "#0f2c40"
+  accent: "#c8892b"
+- slug: jurnal-b
+  name: Jurnal Contoh B
+  short_name: JCB
+  tagline: Kajian terapan dan hasil penelitian lapangan
+  issn_print: "0000-0003"
+  issn_online: "0000-0004"
+  publisher: Nama Penerbit B
+  email: redaksi-b@example.com
+  address: Alamat redaksi Jurnal B
+  frequency: Tiga kali setahun
+  doi_prefix: "10.0002"
+  license: CC BY-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-sa/4.0/
+  color: "#1f5b4a"
+  color_dark: "#12382d"
+  accent: "#d1743a"

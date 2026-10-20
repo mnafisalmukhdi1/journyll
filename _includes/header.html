@@ -1,7 +1,20 @@
+{% assign jr = include.jr %}
+{% if jr %}
+<div class="portal-bar"><div class="container py-1 small">
+  <a href="{{ '/' | relative_url }}"><i class="bi bi-arrow-left-short"></i>{{ site.data.portal.name }}</a>
+</div></div>
 <header class="masthead">
   <div class="container py-4">
-    <a class="masthead-title" href="{{ '/' | relative_url }}">{{ site.data.journal.name }}</a>
-    <p class="mb-0 masthead-sub">{{ site.data.journal.tagline }}</p>
-    <p class="mb-0 small masthead-issn">p-ISSN {{ site.data.journal.issn_print }} &nbsp;|&nbsp; e-ISSN {{ site.data.journal.issn_online }}</p>
+    <a class="masthead-title" href="{{ jr.slug | prepend: '/' | append: '/' | relative_url }}">{{ jr.name }}</a>
+    <p class="mb-0 masthead-sub">{{ jr.tagline }}</p>
+    <p class="mb-0 small masthead-issn">p-ISSN {{ jr.issn_print }} &nbsp;|&nbsp; e-ISSN {{ jr.issn_online }}</p>
   </div>
 </header>
+{% else %}
+<header class="masthead">
+  <div class="container py-4">
+    <a class="masthead-title" href="{{ '/' | relative_url }}">{{ site.data.portal.name }}</a>
+    <p class="mb-0 masthead-sub">{{ site.data.portal.tagline }}</p>
+  </div>
+</header>
+{% endif %}

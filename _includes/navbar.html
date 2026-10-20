@@ -1,3 +1,4 @@
+{% assign jr = include.jr %}
 <nav class="navbar navbar-expand-lg navbar-dark journal-nav sticky-top" aria-label="Navigasi utama">
   <div class="container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Buka menu">
@@ -5,29 +6,46 @@
     </button>
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav me-auto">
-        {% for item in site.data.navigation %}
-          {% if item.children %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {% if item.icon %}<i class="bi bi-{{ item.icon }} me-1"></i>{% endif %}{{ item.title }}
-            </a>
-            <ul class="dropdown-menu">
-              {% for c in item.children %}
-              <li><a class="dropdown-item" href="{{ c.url | relative_url }}">{{ c.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link{% if page.url == item.url %} active{% endif %}" href="{{ item.url | relative_url }}">
-              {% if item.icon %}<i class="bi bi-{{ item.icon }} me-1"></i>{% endif %}{{ item.title }}
-            </a>
-          </li>
-          {% endif %}
-        {% endfor %}
+      {% if jr %}
+        {% assign b = jr.slug | prepend: '/' | append: '/' %}
+        <li class="nav-item"><a class="nav-link" href="{{ b | relative_url }}"><i class="bi bi-house me-1"></i>Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ b | append: 'current/' | relative_url }}"><i class="bi bi-journal-text me-1"></i>Terbitan Terkini</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ b | append: 'archive/' | relative_url }}"><i class="bi bi-archive me-1"></i>Arsip</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-circle me-1"></i>Tentang</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ b | append: 'about/' | relative_url }}">Tentang Jurnal</a></li>
+            <li><a class="dropdown-item" href="{{ b | append: 'editorial-team/' | relative_url }}">Tim Editorial</a></li>
+            <li><a class="dropdown-item" href="{{ b | append: 'author-guidelines/' | relative_url }}">Panduan Penulis</a></li>
+            <li><a class="dropdown-item" href="{{ b | append: 'contact/' | relative_url }}">Kontak</a></li>
+          </ul>
+        </li>
+        {% if site.data.journals.size > 1 %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-collection me-1"></i>Jurnal lain</a>
+          <ul class="dropdown-menu">
+            {% for j in site.data.journals %}{% unless j.slug == jr.slug %}
+            <li><a class="dropdown-item" href="{{ j.slug | prepend: '/' | append: '/' | relative_url }}">{{ j.name }}</a></li>
+            {% endunless %}{% endfor %}
+          </ul>
+        </li>
+        {% endif %}
+      {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ '/' | relative_url }}"><i class="bi bi-house me-1"></i>Beranda</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-collection me-1"></i>Jurnal</a>
+          <ul class="dropdown-menu">
+            {% for j in site.data.journals %}
+            <li><a class="dropdown-item" href="{{ j.slug | prepend: '/' | append: '/' | relative_url }}">{{ j.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="{{ '/tentang/' | relative_url }}"><i class="bi bi-info-circle me-1"></i>Tentang Portal</a></li>
+      {% endif %}
       </ul>
       <form class="d-flex" role="search" action="{{ '/search/' | relative_url }}" method="get">
-        <input class="form-control form-control-sm me-2" type="search" name="q" placeholder="Cari artikel" aria-label="Cari artikel">
+        {% if jr %}<input type="hidden" name="j" value="{{ jr.slug }}">{% endif %}
+        <input class="form-control form-control-sm me-2" type="search" name="q" placeholder="{% if jr %}Cari di jurnal ini{% else %}Cari artikel{% endif %}" aria-label="Cari artikel">
         <button class="btn btn-sm btn-light" type="submit" aria-label="Cari"><i class="bi bi-search"></i></button>
       </form>
     </div>

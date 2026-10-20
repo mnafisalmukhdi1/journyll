@@ -1,0 +1,9 @@
+{% assign bc_jr = site.data.journals | where: "slug", page.journal | first %}
+{% assign bc_label = include.label | default: page.title %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a href="{{ '/' | relative_url }}">Portal</a></li>
+    {% if bc_jr %}<li class="breadcrumb-item"><a href="{{ bc_jr.slug | prepend: '/' | append: '/' | relative_url }}">{{ bc_jr.short_name }}</a></li>{% endif %}
+    {% if page.layout != "journal-home" %}<li class="breadcrumb-item active" aria-current="page">{{ bc_label }}</li>{% endif %}
+  </ol>
+</nav>
