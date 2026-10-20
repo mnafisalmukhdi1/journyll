@@ -1,4 +1,4 @@
 ---
 layout: null
 ---
-[{% for a in site.articles %}{"title":{{ a.title | jsonify }},"url":{{ a.url | relative_url | jsonify }},"authors":{{ a.authors | map: "name" | join: ", " | jsonify }},"keywords":{{ a.keywords | join: ", " | jsonify }},"abstract":{{ a.abstract | strip_newlines | jsonify }},"issue":"Vol. {{ a.volume }} No. {{ a.number }} ({{ a.year }})"}{% unless forloop.last %},{% endunless %}{% endfor %}]
+[{% for a in site.articles %}{% assign jj = site.data.journals | where: "slug", a.journal | first %}{"title":{{ a.title | jsonify }},"url":{{ a.url | relative_url | jsonify }},"journal":{{ a.journal | jsonify }},"journal_name":{{ jj.name | jsonify }},"authors":{{ a.authors | map: "name" | join: ", " | jsonify }},"keywords":{{ a.keywords | join: ", " | jsonify }},"abstract":{{ a.abstract | strip_newlines | jsonify }},"issue":"Vol. {{ a.volume }} No. {{ a.number }} ({{ a.year }})"}{% unless forloop.last %},{% endunless %}{% endfor %}]

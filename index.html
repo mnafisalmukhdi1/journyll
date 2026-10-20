@@ -2,32 +2,42 @@
 layout: default
 title: Beranda
 ---
-{% assign groups = site.articles | group_by_exp: "a", "a.volume | times: 100 | plus: a.number" | sort: "name" | reverse %}
-{% assign latest = groups | first %}
-
 <section class="mb-4">
-  <h1 class="h3 page-title">Selamat datang</h1>
-  <p>{{ site.description }}. Seluruh artikel dapat dibaca dan diunduh tanpa biaya.</p>
-  <a class="btn btn-primary" href="{{ '/author-guidelines/' | relative_url }}"><i class="bi bi-pencil-square me-1"></i>Kirim naskah</a>
-  <a class="btn btn-outline-secondary" href="{{ '/about/' | relative_url }}">Tentang jurnal</a>
+  <h1 class="h3 page-title">Jurnal kami</h1>
+  <div class="row row-cols-1 row-cols-md-2 g-3">
+    {% for j in site.data.journals %}
+    {% assign arts = site.articles | where: "journal", j.slug %}
+    {% assign g = arts | group_by_exp: "a", "a.volume | times: 100 | plus: a.number" | sort: "name" | reverse | first %}
+    {% assign f = g.items | first %}
+    <div class="col">
+      <div class="card h-100 journal-card" style="border-top-color:{{ j.color }}">
+        <div class="card-body">
+          <h2 class="h5 card-title"><a class="text-decoration-none" style="color:{{ j.color }}" href="{{ j.slug | prepend: '/' | append: '/' | relative_url }}">{{ j.name }}</a></h2>
+          <p class="card-text small">{{ j.tagline }}</p>
+          <p class="small text-muted mb-0">p-ISSN {{ j.issn_print }} | e-ISSN {{ j.issn_online }}<br>
+          {{ arts.size }} artikel{% if f %} &bull; terbitan terkini: Vol. {{ f.volume }} No. {{ f.number }} ({{ f.year }}){% endif %}</p>
+        </div>
+        <div class="card-footer bg-transparent border-0 pb-3">
+          <a class="btn btn-sm btn-primary" style="background-color:{{ j.color }};border-color:{{ j.color }}" href="{{ j.slug | prepend: '/' | append: '/' | relative_url }}">Buka jurnal</a>
+          <a class="btn btn-sm btn-outline-secondary" href="{{ j.slug | prepend: '/' | append: '/archive/' | relative_url }}">Arsip</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </section>
 
-{% if latest %}
-{% assign first = latest.items | first %}
 <section class="mb-4">
-  <h2 class="h5 page-title">Terbitan terkini: Vol. {{ first.volume }} No. {{ first.number }} ({{ first.year }})</h2>
-  {% for a in latest.items %}{% include article-card.html article=a %}{% endfor %}
-  <a href="{{ '/archive/' | relative_url }}">Lihat semua terbitan &raquo;</a>
+  <h2 class="h5 page-title">Artikel terbaru</h2>
+  {% assign recent = site.articles | sort: "published" | reverse %}
+  {% for a in recent limit: 6 %}{% include article-card.html article=a show_journal=true %}{% endfor %}
 </section>
-{% endif %}
 
 <section>
   <h2 class="h5 page-title">Pengumuman</h2>
   {% for n in site.data.announcements %}
-  <div class="mb-3">
-    <strong>{{ n.title }}</strong>
+  <div class="mb-3"><strong>{{ n.title }}</strong>
     <div class="small text-muted">{{ n.date | date: "%-d %B %Y" }}</div>
-    <div>{{ n.text }}</div>
-  </div>
+    <div>{{ n.text }}</div></div>
   {% endfor %}
 </section>

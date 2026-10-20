@@ -1,10 +1,10 @@
-# ====== Konfigurasi Situs ======
-title: Nama Jurnal Anda
-description: Jurnal ilmiah akses terbuka berbasis Jekyll
+# ====== Konfigurasi Portal Multi-Jurnal ======
+title: Portal Jurnal
+description: Portal jurnal ilmiah akses terbuka
 lang: id
 
 # GitHub Pages:
-#  - Situs pengguna (username.github.io)  -> baseurl: ""
+#  - Situs pengguna (username.github.io)    -> baseurl: ""
 #  - Situs proyek (username.github.io/repo) -> baseurl: "/repo"
 url: "https://username.github.io"
 baseurl: ""
@@ -17,10 +17,10 @@ plugins:
 collections:
   articles:
     output: true
-    permalink: /artikel/:name/
+    permalink: /artikel/:path/   # contoh: /artikel/jurnal-a/judul-artikel/
 
 defaults:
   - scope: { path: "", type: "articles" }
     values: { layout: article }
 
-exclude: [README.md, Gemfile, Gemfile.lock, vendor, node_modules]
+exclude: [README.md, Gemfile, Gemfile.lock, vendor, node_modules, tools]

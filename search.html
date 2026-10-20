@@ -1,11 +1,23 @@
 ---
-layout: page
+layout: default
 title: Pencarian
 permalink: /search/
 ---
-<form id="search-form" class="input-group mb-3" role="search">
-  <input id="search-input" class="form-control" type="search" name="q" placeholder="Judul, penulis, atau kata kunci" data-index="{{ '/search.json' | relative_url }}" aria-label="Kata pencarian">
-  <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Cari</button>
+{% include breadcrumb.html %}
+<h1 class="h3 page-title">Pencarian</h1>
+<form id="search-form" class="row g-2 mb-3" role="search">
+  <div class="col-md-4">
+    <select id="search-journal" class="form-select" aria-label="Pilih jurnal">
+      <option value="">Semua jurnal</option>
+      {% for j in site.data.journals %}<option value="{{ j.slug }}">{{ j.name }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-8">
+    <div class="input-group">
+      <input id="search-input" class="form-control" type="search" placeholder="Judul, penulis, atau kata kunci" data-index="{{ '/search.json' | relative_url }}" aria-label="Kata pencarian">
+      <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Cari</button>
+    </div>
+  </div>
 </form>
 <div id="search-status" class="small text-muted mb-3" aria-live="polite"></div>
 <div id="search-results"></div>
